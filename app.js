@@ -37,8 +37,10 @@ const filter = (searchedStr) => {
     return (!isEmpty(newList)) ? 'Nothing found' : JSON.stringify(newList)
 }
 
-const count = () => {
-    const newList = data.map((country) => {
+const count = (dataArg) => {
+    // check if there is argument, if there is then use it
+    const newData = (dataArg && JSON.parse(dataArg)) || data
+    const newList = newData.map((country) => {
         country.people.map((person) => {
             person.name = `${person.name} [${person.animals.length}]`
             return person
