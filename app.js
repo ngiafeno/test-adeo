@@ -56,15 +56,31 @@ const count = (dataArg) => {
 // USAGE: node app.js --count OR node app.js count
 
 try {
-    const cmd = args[2].split("=");
-    if (cmd[0] === '--filter' || cmd[0] === 'filter') {
-        filter(cmd[1])
-    } else if (cmd[0] === '--count' || cmd[0] === 'count') {
-        count()
-    } else {
-        console.log('Wrong arguments')
+    // If the user wants to filter the data by a string pattern (e.g. 'ry') 
+    if (args.length > 2 && args.length < 4) {
+        const cmd = args[2].split("=")
+        if (cmd[0] === '--filter' || cmd[0] === 'filter') {
+            filter(cmd[1])
+        } else if (cmd[0] === '--count' || cmd[0] === 'count') {
+            count()
+        } else {
+            console.log('Wrong arguments')
+        }
+    } else if (args.length > 2 && args.length === 4) {
+        const cmd1 = args[2].split("=")
+        const cmd2 = args[3].split("=")
+
+        if ((cmd1[0] === '--filter' || cmd1[0] === 'filter') && (cmd2[0] === '--count' || cmd2[0] === 'count')) {
+            const filtered = filter(cmd1[1])
+            count(filtered)
+        } else if ((cmd1[0] === '--count' || cmd1[0] === 'count') && (cmd2[0] === '--filter' || cmd2[0] === 'filter')) {
+            const filtered = filter(cmd2[1])
+            count(filtered)
+        } else {
+            console.log('Wrong arguments')
+        }
     }
-} catch(err) {
+} catch (err) {
     throw err
 }
 
