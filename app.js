@@ -40,7 +40,6 @@ const filter = (searchedStr) => {
 const count = (dataArg) => {
     // check if there is argument, if there is then use it
     const newData = (dataArg && JSON.parse(dataArg)) || data
-    console.log('ENW DATA', newData)
     const newList = newData.map((country) => {
         country.people.map((person) => {
             person.name = `${person.name} [${person.animals.length}]`
