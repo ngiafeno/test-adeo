@@ -11,7 +11,7 @@ function isEmpty(arr) {
 // This function filters out every animal that does not match the string pattern
 const removeNonMatching = (searchedStr, person) => {
     return person.animals.map((animal) => {
-        if (animal.name.includes(searchedStr)) {
+        if (searchedStr.length !== 0 && animal.name.includes(searchedStr)) {
             return animal;
         }
     }).filter(e => e)
