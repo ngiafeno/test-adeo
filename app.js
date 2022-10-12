@@ -37,10 +37,8 @@ const filter = (searchedStr) => {
     return (!isEmpty(newList)) ? 'Nothing found' : JSON.stringify(newList)
 }
 
-const count = (dataArg) => {
-    // check if there is argument, if there is then use it
-    const newData = (dataArg && JSON.parse(dataArg)) || data
-    const newList = newData.map((country) => {
+const count = () => {
+    const newList = data.map((country) => {
         country.people.map((person) => {
             person.name = `${person.name} [${person.animals.length}]`
             return person
@@ -50,6 +48,14 @@ const count = (dataArg) => {
     })
     console.log(JSON.stringify(newList))
     return JSON.stringify(newList)
+}
+
+const filterAndCount = (searchedStr) => {
+    const filtered = filter(searchedStr)
+    if(filtered == 'Nothing found') {
+        return 'Nothing found'
+    }
+    return count(filtered)
 }
 
 // USAGE: node app.js --filter=[PATTERN] OR node app.js filter=[PATTERN]
@@ -86,5 +92,5 @@ try {
 
 
 module.exports = {
-    count, filter
+    count, filter, filterAndCount
 }
